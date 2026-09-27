@@ -1,0 +1,44 @@
+{
+  "name": "@studyly/core",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./env": "./src/env.ts",
+    "./parser": "./src/parser/index.ts",
+    "./grades": "./src/grades/index.ts",
+    "./priority": "./src/priority.ts",
+    "./scheduler": "./src/scheduler/index.ts",
+    "./exports": "./src/exports.ts",
+    "./cards": "./src/cards/index.ts",
+    "./rate-limit": "./src/rate-limit.ts",
+    "./analytics": "./src/analytics.ts",
+    "./identity": "./src/identity/index.ts",
+    "./live": "./src/live/index.ts",
+    "./live/*": "./src/live/*"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json --noEmit",
+    "dev": "echo 'core is a library; run pnpm test'",
+    "lint": "eslint .",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "@date-fns/tz": "^1.0.0",
+    "@studyly/db": "workspace:*",
+    "date-fns": "^4.1.0",
+    "fflate": "^0.8.2",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "eslint": "^9.18.0",
+    "typescript": "^5.6.0",
+    "vite-tsconfig-paths": "^5.1.4",
+    "vitest": "^2.1.8"
+  }
+}

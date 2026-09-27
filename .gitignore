@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.turbo/
+dist/
+coverage/
+*.tsbuildinfo
+.vercel/
+.freebuff/
+*.log
+.env
+.env.*
+!.env.example
+supabase/.branches/
+supabase/.temp/

@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  lint-typecheck-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Unit tests
+        run: pnpm test
+        env:
+          NODE_ENV: test
+
+      - name: Format check
+        run: pnpm format:check
+
+  migration-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: latest
+
+      - name: Start local Supabase
+        run: supabase start -x studio,inbucket,imgproxy,storage-api,vector,edge-runtime
+
+      - name: Apply migrations (fails on invalid SQL)
+        run: supabase db reset
+
+      - name: Regenerate DB types and fail on stale types (item 15)
+        run: |
+          supabase gen types --lang=typescript --local > packages/db/src/database.types.ts
+          git diff --exit-code packages/db/src/database.types.ts || {
+            echo "::error::database.types.ts is stale — run 'pnpm db:types' and commit"
+            git diff packages/db/src/database.types.ts | head -100
+            exit 1
+          }
+
+      - name: SQL tests (RLS, triggers, constraints, study groups — item 10, G3)
+        run: |
+          psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f supabase/tests/rls_tests.sql -f supabase/tests/group_tests.sql -f supabase/tests/profiles_username_tests.sql
+
+      - name: Verify seed applies cleanly (item 16)
+        run: |
+          supabase db reset --debug >/dev/null 2>&1 || true
+          psql "postgresql://postgres:postgres@127.0.0.1:54322/postgres" -v ON_ERROR_STOP=1 -f supabase/seed.sql

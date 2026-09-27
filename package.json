@@ -1,0 +1,30 @@
+{
+  "name": "studyly",
+  "private": true,
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test --output-logs=errors-only",
+    "test:watch": "pnpm -F @studyly/core test:watch",
+    "db:reset": "supabase db reset --local",
+    "db:migrate": "supabase migration up --local",
+    "db:types": "supabase gen types --lang=typescript --local > packages/db/src/database.types.ts",
+    "db:seed": "supabase db reset --local && psql \"$(node scripts/db-url.mjs)\" -v ON_ERROR_STOP=1 -f supabase/seed.sql",
+    "db:tests": "supabase db reset --local && psql \"$(node scripts/db-url.mjs)\" -v ON_ERROR_STOP=1 -f supabase/tests/rls_tests.sql -f supabase/tests/group_tests.sql -f supabase/tests/study_groups_tests.sql -f supabase/tests/profiles_username_tests.sql",
+    "format": "prettier --write \"**/*.{ts,tsx,mjs,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,mjs,json,md,yml,yaml}\""
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "supabase": "^2.0.0",
+    "turbo": "^2.1.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.20.0"
+  }
+}

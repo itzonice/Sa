@@ -1,0 +1,24 @@
+{
+  "name": "@studyly/db",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./database.types": "./src/database.types.ts"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json --noEmit",
+    "dev": "echo 'db is a types package; run pnpm db:types'",
+    "lint": "eslint .",
+    "typecheck": "tsc --project tsconfig.json --noEmit",
+    "test": "echo 'db package has no unit tests; run pnpm db:tests for SQL tests'"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "eslint": "^9.18.0",
+    "typescript": "^5.6.0"
+  }
+}

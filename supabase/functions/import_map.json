@@ -1,0 +1,10 @@
+{
+  "imports": {
+    "@supabase/supabase-js": "npm:@supabase/supabase-js@^2.47.10",
+    "@studyly/core/parser": "../../../packages/core/src/parser/index.ts",
+    "@studyly/core/cards": "../../../packages/core/src/cards/index.ts",
+    "@studyly/core/scheduler": "../../../packages/core/src/scheduler/index.ts",
+    "zod": "npm:zod@^3.24.1",
+    "unpdf": "npm:unpdf@^0.12.1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "importMap": "./import_map.json",
+  "compilerOptions": {
+    "strict": true
+  },
+  "lint": {
+    "rules": {
+      "exclude": ["no-explicit-any"]
+    }
+  },
+  "unstable": ["raw-imports"]
+}

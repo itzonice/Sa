@@ -1,0 +1,53 @@
+:root {
+  --bg: #0f1115;
+  --fg: #e6e8ee;
+  --muted: #9aa3b2;
+  --card: #171a21;
+  --border: #262b36;
+  --accent: #7c9cff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+}
+
+.shell {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem 1.25rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+
+h1 {
+  font-size: 2rem;
+  margin: 0 0 0.25rem;
+}
+
+p {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+code {
+  color: var(--accent);
+}
